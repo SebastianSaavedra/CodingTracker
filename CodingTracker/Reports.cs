@@ -34,21 +34,21 @@ namespace CodingTracker
                         });
                     }
                     break;
-                case Period.Week:
-                    var weekGroups = sessions.GroupBy(s => CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(DateTime.Parse(s.StartTime!).Date, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday));
-                    foreach (var weekGroup in weekGroups)
-                    {
-                        var datesInWeek = weekGroup.Select(s => DateTime.Parse(s.StartTime!).Date);
-                        var minDate = datesInWeek.Min();
-                        var maxDate = datesInWeek.Max();
-                        reports.Add(new PeriodReport
-                        {
-                            Period = period,
-                            DisplayValue = $"{minDate:dd/MM/yyyy} - {maxDate:dd/MM/yyyy}",
-                            Total_Hours = weekGroup.Sum(s => s.Duration),
-                            Average_Hours_Per_Session = Math.Round(weekGroup.Average(s => s.Duration), 1)
-                        });
-                    }
+                //case Period.Week:
+                //    var weekGroups = sessions.GroupBy(s => CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(DateTime.Parse(s.StartTime!).Date, CalendarWeekRule.FirstFullWeek, DayOfWeek.Monday));
+                //    foreach (var weekGroup in weekGroups)
+                //    {
+                //        var datesInWeek = weekGroup.Select(s => DateTime.Parse(s.StartTime!).Date);
+                //        var minDate = datesInWeek.Min();
+                //        var maxDate = datesInWeek.Max();
+                //        reports.Add(new PeriodReport
+                //        {
+                //            Period = period,
+                //            DisplayValue = $"{minDate:dd/MM/yyyy} - {maxDate:dd/MM/yyyy}",
+                //            Total_Hours = weekGroup.Sum(s => s.Duration),
+                //            Average_Hours_Per_Session = Math.Round(weekGroup.Average(s => s.Duration), 1)
+                //        });
+                //    }
                     break;
                 case Period.Month:
                     var monthGroups = sessions.GroupBy(s => DateTime.Parse(s.StartTime!).Month);

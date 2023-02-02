@@ -14,6 +14,7 @@ namespace CodingTracker
     internal class CodingTrackerContext : DbContext
     {
         public DbSet<CodingSession> Sessions { get; set; }
+        public DbSet<CodingGoals> CodingGoals { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder options)
             => options.UseSqlite($"Data Source={ConfigurationManager.ConnectionStrings["DatabasePath"].ConnectionString}");
     }

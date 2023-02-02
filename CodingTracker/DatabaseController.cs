@@ -27,27 +27,24 @@ namespace CodingTracker
             switch (period)
             {
                 case Period.Day:
-                    sessions = sessions
-                    .Where(r =>
+                    sessions = sessions.Where(r =>
                     {
                         var date = DateTime.Parse(r.StartTime!);
                         return date.Day == value;
                     }).ToList();
                     break;
 
-                case Period.Week:
-                    sessions = sessions
-                    .Where(r =>
-                    {
-                        var date = DateTime.Parse(r.StartTime!);
-                        var weekNumber = Utils.Utils.GetWeekOfMonth(date);
-                        return weekNumber == value;
-                    }).ToList();
-                    break;
+                //case Period.Week:
+                //    sessions = sessions.Where(r =>
+                //    {
+                //        var date = DateTime.Parse(r.StartTime!);
+                //        var weekNumber = Utils.Utils.GetWeekOfMonth(date);
+                //        return weekNumber == value;
+                //    }).ToList();
+                //    break;
 
                 case Period.Month:
-                    sessions = sessions
-                    .Where(r =>
+                    sessions = sessions.Where(r =>
                     {
                         var date = DateTime.Parse(r.StartTime!);
                         return date.Month == value;
@@ -55,8 +52,7 @@ namespace CodingTracker
                     break;
 
                 case Period.Year:
-                    sessions = sessions
-                    .Where(r => DateTime.Parse(r.StartTime!).Year == value)
+                    sessions = sessions.Where(r => DateTime.Parse(r.StartTime!).Year == value)
                     .ToList();
                     break;
 

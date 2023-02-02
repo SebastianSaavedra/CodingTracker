@@ -20,20 +20,19 @@ namespace CodingTracker.Utils
             return diffOfDates.Hours;
         }
 
-        public static int GetWeekOfMonth(DateTime date)
-        {
-            int daysInMonth = DateTime.DaysInMonth(date.Year, date.Month);
-            int firstOfMonth = (new DateTime(date.Year, date.Month, 1)).DayOfWeek.GetHashCode();
+        //public static int GetWeekOfMonth(DateTime date)   //Gotta Fix
+        //{
+        //    int daysInMonth = DateTime.DaysInMonth(date.Year, date.Month);
+        //    int firstOfMonth = new DateTime(date.Year, date.Month, 1).DayOfWeek.GetHashCode();
 
-            int weekOfMonth = (date.Day + firstOfMonth - 1) / 7 + 1;
-            if (weekOfMonth == 5 && date.Day + firstOfMonth > daysInMonth)
-            {
-                weekOfMonth = 4;
-            }
+        //    int weekOfMonth = (date.Day + firstOfMonth - 1) / 7 + 1;
+        //    if (weekOfMonth > 4)
+        //    {
+        //        weekOfMonth = 4;
+        //    }
 
-            return weekOfMonth;
-        }
-
+        //    return weekOfMonth;
+        //}
 
     }
 }

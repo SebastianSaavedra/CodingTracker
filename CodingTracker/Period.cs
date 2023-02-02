@@ -3,7 +3,7 @@
     public enum Period
     {
         Day,
-        Week,
+        //Week,
         Month,
         Year
     }

@@ -3,6 +3,7 @@ using System;
 using CodingTracker;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CodingTracker.Migrations
 {
     [DbContext(typeof(CodingTrackerContext))]
-    partial class CodingTrackerContextModelSnapshot : ModelSnapshot
+    [Migration("20230202223128_Hours")]
+    partial class Hours
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.2");
@@ -26,9 +29,8 @@ namespace CodingTracker.Migrations
                     b.Property<string>("CreationDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Deadline")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("Deadline")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Goal")
                         .IsRequired()

@@ -14,7 +14,6 @@ namespace CodingTracker.Model
         [Required]
         public string? StartTime { get; set; }
 
-        [Required]
         public string? EndTime { get; set; }
 
         public int Duration { get; set; }

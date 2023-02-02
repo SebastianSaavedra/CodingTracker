@@ -1,7 +1,9 @@
 ﻿using CodingTracker.Model;
+using CodingTracker.Utils;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,26 +18,68 @@ namespace CodingTracker
             _context = new CodingTrackerContext();
         }
 
-        //public IQueryable<CodingSession> GetAllSessions()
-        //{
-        //    if (_context.Sessions == null) return null!;
+        public List<CodingSession> GetAllSessions(Period? period, int value, bool ascending)
+        {
+            if (_context.Sessions == null) return null!;
 
-        //    var sessions = from s in _context.Sessions select s;
-        //    return sessions;
-        //}
+            var sessions = _context.Sessions.ToList();
 
-        public async Task<CodingSession> GetSession(int? id)
+            switch (period)
+            {
+                case Period.Day:
+                    sessions = sessions
+                    .Where(r =>
+                    {
+                        var date = DateTime.Parse(r.StartTime!);
+                        return date.Day == value;
+                    }).ToList();
+                    break;
+
+                case Period.Week:
+                    sessions = sessions
+                    .Where(r =>
+                    {
+                        var date = DateTime.Parse(r.StartTime!);
+                        var weekNumber = Utils.Utils.GetWeekOfMonth(date);
+                        return weekNumber == value;
+                    }).ToList();
+                    break;
+
+                case Period.Month:
+                    sessions = sessions
+                    .Where(r =>
+                    {
+                        var date = DateTime.Parse(r.StartTime!);
+                        return date.Month == value;
+                    }).ToList();
+                    break;
+
+                case Period.Year:
+                    sessions = sessions
+                    .Where(r => DateTime.Parse(r.StartTime!).Year == value)
+                    .ToList();
+                    break;
+
+                default:
+                    return sessions;
+            }
+
+            return ascending ? sessions.OrderBy(r => DateTime.Parse(r.StartTime!)).ToList() : sessions.OrderByDescending(r => DateTime.Parse(r.StartTime!)).ToList();
+        }
+
+
+        public async Task<CodingSession> GetOneSession(int? id)
         {
             if (id == null || _context.Sessions == null) return null!;
 
-            var session = await _context.Sessions.OrderBy(x => x.Id == id).FirstOrDefaultAsync();
+            var session = await _context.Sessions.OrderBy(x => x.Id).Where(x => x.Id == id).FirstAsync();
 
             if (session == null) return null!;
 
             return session;
         }
 
-        public async Task<CodingSession> CreateNewSession(CodingSession session)
+        public async Task<CodingSession> AddSession(CodingSession session)
         {
             if (_context.Sessions == null) return null!;
 
@@ -44,7 +88,7 @@ namespace CodingTracker
             return session;
         }
 
-        public async Task<CodingSession> UpdateNewSession(int? id, CodingSession updatedSession)
+        public async Task<CodingSession> UpdateSession(int? id, CodingSession updatedSession)
         {
             if (id == null || _context.Sessions == null) return null!;
 
@@ -60,7 +104,7 @@ namespace CodingTracker
             return session;
         }
 
-        public async void DeleteNewSession(int? id)
+        public async void DeleteSession(int? id)
         {
             if (id == null || _context.Sessions == null) return;
 
@@ -70,5 +114,6 @@ namespace CodingTracker
             _context.Sessions.Remove(session);
             await _context.SaveChangesAsync();
         }
+
     }
 }

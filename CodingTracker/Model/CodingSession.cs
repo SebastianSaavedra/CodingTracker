@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CodingTracker.Model
 {
-    internal class CodingSession
+    public class CodingSession
     {
         public int Id { get; set; }
 

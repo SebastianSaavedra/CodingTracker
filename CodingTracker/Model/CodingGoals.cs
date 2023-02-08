@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CodingTracker
+namespace CodingTracker.Model
 {
     public class CodingGoals
     {

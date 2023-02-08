@@ -9,7 +9,7 @@ using System.Configuration;
 using System.Collections.Specialized;
 using CodingTracker.Model;
 
-namespace CodingTracker
+namespace CodingTracker.Database
 {
     internal class CodingTrackerContext : DbContext
     {

@@ -1,12 +1,13 @@
-﻿using CodingTracker.Model;
+﻿using CodingTracker.Database;
+using CodingTracker.Model;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-namespace CodingTracker
+    
+namespace CodingTracker.Controllers
 {
     internal class CodingGoalsController
     {

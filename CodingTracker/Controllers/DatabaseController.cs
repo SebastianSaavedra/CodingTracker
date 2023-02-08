@@ -1,4 +1,6 @@
-﻿using CodingTracker.Model;
+﻿using CodingTracker.Database;
+using CodingTracker.Interface;
+using CodingTracker.Model;
 using CodingTracker.Utils;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -10,12 +12,21 @@ using System.Threading.Tasks;
 
 namespace CodingTracker
 {
-    internal class DatabaseController
+    internal class DatabaseController : IDatabaseController
     {
         private CodingTrackerContext _context;
         public DatabaseController()
         {
             _context = new CodingTrackerContext();
+        }
+
+        public List<CodingSession> GetAllSessions(bool ascending = true)
+        {
+            if (_context.Sessions == null) return null!;
+
+            var sessions = _context.Sessions.ToList();
+
+            return ascending ? sessions.OrderBy(r => DateTime.Parse(r.StartTime!)).ToList() : sessions.OrderByDescending(r => DateTime.Parse(r.StartTime!)).ToList();
         }
 
         public List<CodingSession> GetAllSessions(Period? period, int value, bool ascending)

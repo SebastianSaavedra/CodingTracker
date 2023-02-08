@@ -49,7 +49,7 @@ namespace CodingTracker
                 //            Average_Hours_Per_Session = Math.Round(weekGroup.Average(s => s.Duration), 1)
                 //        });
                 //    }
-                    break;
+                    //break;
                 case Period.Month:
                     var monthGroups = sessions.GroupBy(s => DateTime.Parse(s.StartTime!).Month);
                     foreach (var monthGroup in monthGroups)
